@@ -1,0 +1,33 @@
+
+    .bus-layout {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      margin: auto;
+    }
+    .seat {
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .seat.available {
+      background-color: #fff;
+    }
+    .seat.selected {
+      background-color: #F05A58;
+    }
+    .seat.reserved {
+      background-color: #A9A9A9;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .driver {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    

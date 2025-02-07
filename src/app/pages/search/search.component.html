@@ -1,0 +1,98 @@
+<div class="container">
+    <header class="my-4">
+        <h1 class="text-center">Book Your Ticket</h1>
+    </header>
+
+    <!-- Search Form -->
+    <section>
+        <div class="container mt-5 d-flex justify-content-center">
+            <form [formGroup]="searchForm" (ngSubmit)="onSubmit()"  class="search-form d-flex align-items-center shadow-lg">
+              <div class="row w-100 text-white">
+                <div class="col-md-3 d-flex align-items-center">
+                  <div class="input-group">
+                    <label class="text-danger">From</label>
+                    <span class="input-group-text"><i class="bi bi-bus-front"></i></span>
+                    <!-- <input type="text" class="form-control" placeholder="From" value="Nagpur"> -->
+                     <select class="form-control" formControlName="from" *ngIf="location$|async as location">
+                        <option class="search-form" *ngFor="let item of location" [value]="item.locationId">{{item.locationName}}</option> 
+                     </select>
+                  </div>
+                </div>
+                <div class="col-md-1 text-center d-flex align-items-center justify-content-center">
+                  <i class="bi bi-arrow-left-right fs-3"></i>
+                </div>
+                <div class="col-md-3 d-flex align-items-center">
+                  <div class="input-group">
+                    <label class="text-danger">&nbsp;To&nbsp;</label>
+                    <span class="input-group-text"><i class="bi bi-bus-front"></i></span>
+                    <!-- <input type="text" class="form-control" placeholder="To" value="Pune"> -->
+                    <select 
+                    class="form-control" 
+                    formControlName="to" 
+                    *ngIf="location$ | async as location" id="options">
+                    <option class="search-form" *ngFor="let item of location" [value]="item.locationId">
+                      {{ item.locationName }}
+                    </option>
+                  </select>
+                  </div>
+                </div>
+                <div class="col-md-3 d-flex align-items-center">
+                  <div class="input-group">
+                    <span class="search-form"><i class="bi bi-calendar"></i></span>
+                    <input type="date" id="dateIn" [min]="currDate" [max]="limitDate" formControlName="date" class="form-control" placeholder="Date" value="">
+                  </div>
+                  <label  *ngIf="flag&&err" class="text-danger">not valid</label>
+                </div>
+                <div class="col-md-2 text-center">
+                  <button [disabled]=" searchForm.invalid " type="submit" class="btn btn-info text-danger w-100">SEARCH BUSES</button>
+                </div>
+              </div>
+            </form>
+          </div>
+    </section>
+    <!-- Buses List -->
+    <section id="buses-list" class="my-4">
+        <h2>Available Buses</h2>
+        <div *ngFor="let item of busList" class="row">
+            <div class="col-12">
+                <div class="card buscard mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-3 d-flex flex-column justify-content-center align-items-center">
+                        <h5 class="card-title">{{item.busName}}</h5>
+                        <p class="card-text">A/C Sleeper (2+1)</p>
+                        <p>{{item.busVehicleNo}}</p>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="card-body row">
+                          <div class="col-md-2">
+                            <p class="card-text"><strong>{{item.departureTime|date:'hh:mm'}}</strong></p>
+                            <p class="card-text">Departure</p>
+                          </div>
+                          <div class="col-md-2">
+                            <p class="card-text"><strong>13h 55m</strong></p>
+                            <p class="card-text">Duration</p>
+                          </div>
+                          <div class="col-md-2">
+                            <p class="card-text"><strong>{{item.arrivalTime|date:'hh:mm'}}</strong></p>
+                            <p class="card-text">Arrival</p>
+                            <p class="text-danger">{{item.arrivalTime|date:'dd-mm-yyyy'}}</p>
+                          </div>
+                          <div class="col-md-2">
+                            <p class="card-text"><strong>4.5</strong> ⭐</p>
+                            <p class="card-text">567 Ratings</p>
+                          </div>
+                          <div class="col-md-2">
+                            <p class="card-text"><strong>INR {{item.price}}</strong></p>
+                            <p class="card-text">{{item.availableSeats}} available</p>
+                          </div>
+                          <div class="col-md-2 text-end">
+                            <button class="btn btn-danger" [routerLink]="['/booking/'+item.scheduleId]">VIEW SEATS</button>
+                          </div> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </section>
+
